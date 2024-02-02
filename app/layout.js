@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./StoreProvider";
 import Head from "next/head";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
         />
       </Head>
       <body className={inter.className}>
+        <Toaster position="top-right" reverseOrder={false} />
         <StoreProvider>{children}</StoreProvider>
       </body>
     </html>

@@ -2,13 +2,14 @@ import { useState } from "react";
 import { RiEyeFill, RiEyeCloseFill } from "react-icons/ri"; // Import eye icons from react-icons
 
 const AuthInputPassword = ({
-  id,
   name,
   label,
   placeholder,
-  required,
-  Value,
-  setValue,
+  value,
+  onChange,
+  touched,
+  isError,
+  errorMsg,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -19,13 +20,11 @@ const AuthInputPassword = ({
       <div className="relative font-[Quicksand]">
         <input
           type={showPassword ? "text" : "password"} // Toggle between 'text' and 'password'
-          required={required}
-          id={id}
           name={name}
           placeholder={placeholder}
           className="px-3 py-2 pr-10 border border-gray-300 rounded-[7.94px] w-full outline-none"
-          value={Value}
-          onChange={(e) => setValue(e.target.value)}
+          value={value}
+          onChange={onChange}
         />
         <button
           type="button"
@@ -35,6 +34,11 @@ const AuthInputPassword = ({
           {!showPassword ? <RiEyeCloseFill /> : <RiEyeFill />}{" "}
         </button>
       </div>
+      {touched && isError && (
+        <div className="text-red-500 font-[Quicksand] pl-2 pt-1 transition-all ease-in-out">
+          {errorMsg}
+        </div>
+      )}
     </div>
   );
 };

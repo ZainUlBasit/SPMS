@@ -1,28 +1,58 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Image from "next/image";
+import Link from "next/link";
+import axios from "axios";
 import AuthInput from "../components/Input/AuthInput";
 import AuthInputPassword from "../components/Input/AuthInputPassword";
-import Image from "next/image";
 import AuthBtn from "../components/Buttons/AuthBtn";
-import Link from "next/link";
-import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import AddingLightLoader from "../components/Loader/AddingLightLoader";
+import SuccessToast from "../components/Toast/SuccessToast";
+import ErrorToast from "../components/Toast/ErrorToast";
 
-export default function page() {
-  const [Username, setUsername] = useState("");
-  const [Password, setPassword] = useState("");
-  const Auth = useSelector((state) => state.Auth);
-  const router = useRouter();
+export default function Page() {
+  const [Loading, setLoading] = useState(false);
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: Yup.string().required("Password is required"),
+  });
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      setLoading(true);
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/auth/login",
+          {
+            email: values.email,
+            password: values.password,
+          }
+        );
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    // check whether login credential is true are not if true then save it in localstorage
-    if (Username !== "" && Password !== "") {
-      router.push("/", { scroll: false });
-    } else {
-      alert("Please Provide Credentials...");
-    }
-  };
+        if (!response?.data?.success) {
+          ErrorToast(response?.data?.error?.msg);
+          if (response?.data?.error?.msg === "No such email registered!")
+            formik.setFieldError("email", response?.data?.error?.msg);
+          else formik.setFieldError("password", "Invalid password!");
+        } else if (response?.data?.success) {
+          SuccessToast(response.data.data.msg);
+        }
+      } catch (err) {
+        console.error(err);
+        alert("An error occurred. Please try again.");
+      }
+      setLoading(false);
+    },
+  });
+
   return (
     <>
       <div className="flex justify-center items-center w-full h-screen bg-[aliceblue]">
@@ -36,29 +66,43 @@ export default function page() {
               Please enter your credentials to log in.
             </span>
           </p>
-          {/* inputs and button */}
+
+          {/* Inputs and button */}
           <div className="mt-8 mb-3 flex flex-col gap-y-5 px-8">
             <AuthInput
-              Value={Username}
-              setValue={setUsername}
-              placeholder={"Enter email..."}
-              id={"email"}
-              name={"email"}
-              required={true}
-              label={"Email"}
+              name="email"
+              label="Email"
+              placeholder="Enter email..."
+              type="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              touched={formik.touched.email}
+              isError={formik.errors.email}
+              errorMsg={formik.errors.email}
             />
             <AuthInputPassword
-              id={"password"}
-              name={"password"}
-              label={"Password"}
+              name="password"
+              label="Password"
               placeholder="*****************"
-              required={true}
-              Value={Password}
-              setValue={setPassword}
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              touched={formik.touched.password}
+              isError={formik.errors.password}
+              errorMsg={formik.errors.password}
             />
           </div>
-          <AuthBtn title={"Login"} onSubmit={onSubmit} />
-          <Link href={"/forgot-password"} className="mt-5">
+          {Loading ? (
+            <AddingLightLoader />
+          ) : (
+            <AuthBtn
+              type="submit"
+              disabled={Loading}
+              onSubmit={formik.handleSubmit}
+              title="Sign In"
+              Loading={Loading}
+            />
+          )}
+          <Link href="/forgot-password" className="mt-5">
             Forget Password?
           </Link>
         </div>

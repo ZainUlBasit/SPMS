@@ -1,10 +1,14 @@
-const AuthBtn = ({ title, onSubmit }) => {
+const AuthBtn = ({ type, title, onSubmit, disabled, Loading }) => {
   return (
     <button
-      className={`w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+      type={type}
+      className={`w-[197px] h-fit py-2 bg-[#90898E] ${
+        Loading ? "" : "hover:bg-[#465462]"
+      } rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
       onClick={onSubmit}
+      disabled={disabled}
     >
-      {title}
+      {Loading ? "Logging in..." : title}
     </button>
   );
 };
