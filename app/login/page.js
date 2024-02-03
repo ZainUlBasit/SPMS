@@ -11,6 +11,7 @@ import AuthBtn from "../components/Buttons/AuthBtn";
 import AddingLightLoader from "../components/Loader/AddingLightLoader";
 import SuccessToast from "../components/Toast/SuccessToast";
 import ErrorToast from "../components/Toast/ErrorToast";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [Loading, setLoading] = useState(false);
@@ -20,6 +21,7 @@ export default function Page() {
       .required("Email is required"),
     password: Yup.string().required("Password is required"),
   });
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -44,6 +46,8 @@ export default function Page() {
           else formik.setFieldError("password", "Invalid password!");
         } else if (response?.data?.success) {
           SuccessToast(response.data.data.msg);
+          router.push('/dashboard');
+          
         }
       } catch (err) {
         console.error(err);

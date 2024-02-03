@@ -1,0 +1,27 @@
+/* Add the following CSS to your styles or a stylesheet */
+
+/* Hide the scrollbar for the entire page */
+body {
+    overflow: hidden;
+  }
+  
+  /* Style the scrollbar only for the side menu */
+  .side-menu {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent; /* thumb color and track color */
+  }
+  
+  /* WebKit browsers (Chrome, Safari) */
+  .side-menu::-webkit-scrollbar {
+    width: 0px !important; /* width of the scrollbar */
+  }
+  
+  .side-menu::-webkit-scrollbar-thumb {
+    background-color: transparent; /* color of the thumb */
+  }
+  
+  .side-menu::-webkit-scrollbar-track {
+    background-color: transparent; /* color of the track */
+  }
+  
