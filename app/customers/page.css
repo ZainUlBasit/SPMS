@@ -1,0 +1,61 @@
+/* ./app/customers/page.css */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .buttonGroup {
+    margin-bottom: 20px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
+  .customerTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .customerTable th, .customerTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .customerTable th {
+    background-color: #f2f2f2;
+  }
+  
+  .editButton, .removeButton {
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .editButton:hover, .removeButton:hover {
+    background-color: #c82333;
+  }
+  
