@@ -34,37 +34,7 @@ const Page = () => {
   return (
     <>
       <MainWrapper>
-<<<<<<< Updated upstream
-        <div className="w-full flex justify-center items-center my-3">
-          {/* Add functionality to the buttons using onClick */}
-          <Button
-            title={"Add New"}
-            Width={"w-[170px]"}
-            Icon={BsBuildingAdd}
-            onClick={handleAddNewClick}
-          />
-          <Button
-            title={"Info"}
-            Width={"w-[170px]"}
-            Icon={BsBuildingExclamation}
-            onClick={handleInfoClick}
-          />
-          <Button
-            title={"Accounts"}
-            Width={"w-[170px]"}
-            Icon={BsBuildingFillGear}
-            onClick={handleAccountsClick}
-          />
-          <Button
-            title={"Ledger"}
-            Width={"w-[170px]"}
-            Icon={MdAccountBalance}
-            onClick={handleLedgerClick}
-          />
-        </div>
-=======
         <NavGenerator Data={CompanyData} />
->>>>>>> Stashed changes
       </MainWrapper>
     </>
   );
