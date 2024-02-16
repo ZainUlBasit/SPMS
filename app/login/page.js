@@ -129,7 +129,7 @@ export default function Page() {
             />
           )}
           <div className="mt-4">
-            Don't have an account?
+            Don&apos;t have an account?
             <Link href="/register" className="-mt-3 underline font-bold">
               SignUp
             </Link>
