@@ -13,6 +13,7 @@ const Page = () => {
   return (
     <>
       <MainWrapper>
+<<<<<<< Updated upstream
   <div className="content">
     <h1>Welcome to Your Dashboard</h1>
     <div className="dashboard-grid">
@@ -58,6 +59,10 @@ const Page = () => {
   </div>
 </MainWrapper>
 
+=======
+        <div className="my-2">dashboard</div>
+      </MainWrapper>
+>>>>>>> Stashed changes
     </>
   );
 };

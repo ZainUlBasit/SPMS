@@ -6,6 +6,8 @@ import { BsBuildingAdd } from "react-icons/bs";
 import { BsBuildingExclamation } from "react-icons/bs";
 import { BsBuildingFillGear } from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
+import NavGenerator from "../components/Navigations/NavGenerator";
+import { CompanyData } from "@/lib/NavigationData/CompanyData";
 
 const Page = () => {
   // Define functions to handle button clicks
@@ -32,6 +34,7 @@ const Page = () => {
   return (
     <>
       <MainWrapper>
+<<<<<<< Updated upstream
         <div className="w-full flex justify-center items-center my-3">
           {/* Add functionality to the buttons using onClick */}
           <Button
@@ -59,6 +62,9 @@ const Page = () => {
             onClick={handleLedgerClick}
           />
         </div>
+=======
+        <NavGenerator Data={CompanyData} />
+>>>>>>> Stashed changes
       </MainWrapper>
     </>
   );

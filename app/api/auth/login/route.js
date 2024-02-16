@@ -1,8 +1,12 @@
 import connectDB from "@/lib/db";
 import { Users } from "@/lib/models/users";
-import bodyParser from "body-parser";
-import { sign } from "jsonwebtoken";
 import { NextResponse } from "next/server";
+import { compare } from "bcrypt";
+import JwtService from "@/lib/Services/JwtServices";
+import UserDto from "@/lib/Services/userDto";
+import { parse, serialize } from "cookie";
+import Joi from "joi";
+import { sign } from "jsonwebtoken";
 
 export async function GET() {
   await connectDB();
@@ -10,58 +14,83 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const privateKey = process.env.PRIVATE_KEY;
   const bData = await request.json();
-  // const { username, password } = req.body;
-  await connectDB();
   console.log(bData);
 
+  // Validate the request
+  const loginSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  });
+
+  const { error } = loginSchema.validate(bData);
+  if (error) {
+    return NextResponse.json({
+      success: false,
+      error: "Invalid Credentials",
+    });
+  }
+
+  // Check user email
   const { email, password } = bData;
-
-  if (!email) {
-    return NextResponse.json({
-      success: false,
-      error: { msg: "username field is undefined!" },
-    });
-  }
-  if (!password) {
-    return NextResponse.json({
-      success: false,
-      error: { msg: "password field is undefined!" },
-    });
-  }
-
+  let user;
   try {
-    const user = await Users.findOne({ email });
-    if (user === null)
+    user = await Users.findOne({ email });
+    if (!user) {
       return NextResponse.json({
         success: false,
-        error: { msg: "No such email registered!" },
-      });
-    if (user.password !== password) {
-      return NextResponse.json({
-        success: false,
-        error: { msg: `email or password doesn't match!` },
+        error: "No such email found..!",
       });
     }
-    delete user.password;
-    // var token = await sign({ ...user }, privateKey);
-    // res.cookie("userToken", token, {
-    //   // maxAge: 60000000,
-    //   httpOnly: true,
-    //   sameSite: "none",
-    //   secure: true,
-    // });
-    // console.log("res Cookies : ", res);
-    return NextResponse.json({
-      success: true,
-      data: { data: user, msg: "Successfully logged in!" },
-    });
   } catch (error) {
     console.log(error);
     return NextResponse.json({
       success: false,
-      error: error.message,
+      error: "Check your internet connection",
     });
   }
+
+  // Check user password using bcrypt
+  const isMatch = await compare(password, user.password);
+  if (!isMatch) {
+    return NextResponse.json({
+      success: false,
+      error: "Invalid Password..!",
+    });
+  }
+
+  const { accessToken, refreshToken } = JwtService.generateToken({
+    _id: user._id,
+    role: user.role,
+  });
+
+  const result = await JwtService.storeRefreshToken(refreshToken, user._id);
+  if (!result) {
+    return NextResponse.json({
+      success: false,
+      error: "Internal server error.Cannot store refresh token",
+    });
+  }
+
+  // const secret = process.env.ACCESS_SECRET_KEY;
+
+  const MAX_AGE = 60 * 60 * 24 * 30; // days;
+
+  const seralized = serialize("accesstoken", accessToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: MAX_AGE,
+    path: "/",
+  });
+
+  const response = {
+    success: true,
+    data: user,
+  };
+
+  return new Response(JSON.stringify(response), {
+    status: 200,
+    headers: { "Set-Cookie": seralized },
+  });
 }

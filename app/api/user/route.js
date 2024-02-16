@@ -5,7 +5,8 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     await connectDB();
-    return NextResponse.json({ success: true });
+    const users = await Users.find({});
+    return NextResponse.json({ success: true, data: users });
   } catch (err) {
     return NextResponse.json({
       success: false,
