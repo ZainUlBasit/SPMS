@@ -4,8 +4,7 @@ import MainWrapper from "../components/Wrapper/MainWrapper";
 import NavGenerator from "../components/Navigations/NavGenerator";
 import { CompanyData } from "@/lib/NavigationData/CompanyData";
 import TableComp from "../components/Table/TableComponent";
-import { InfoColumns } from "@/lib/Columns/CompanyColumns";
-import { NewButton } from "../components/Buttons/NewButton";
+import { AccountsColumns } from "@/lib/Columns/CompanyColumns";
 
 const Page = () => {
   // Define functions to handle button clicks
@@ -33,22 +32,17 @@ const Page = () => {
   const [EditItemModal, setEditItemModal] = useState(false);
   const [EditCompanyModal, setEditCompanyModal] = useState(false);
 
-  const currentWidth = "200px";
-
   return (
     <>
       <MainWrapper>
-        <div className="w-full flex justify-center items-center my-3">
-          <NewButton type="modal" Width={currentWidth} setOpen={setEditCompanyModal} link="" Icon, title
-        </div>
         <NavGenerator Data={CompanyData} />
         {/* main wrapper */}
         <div className="w-[100%] flex justify-center items-center">
           <div className="w-[90%]">
             <TableComp
               rows={[{}]}
-              columns={InfoColumns}
-              title={"COMPANIES INFO"}
+              columns={AccountsColumns}
+              title={"COMPANIES ACCOUNTS"}
               setSelID={setSelID}
               setEditItemModal={setEditItemModal}
               setEditCompanyModal={setEditCompanyModal}

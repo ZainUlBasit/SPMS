@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import MainWrapper from "../components/Wrapper/MainWrapper";
 import "./page.css";
 import Button from "../components/Buttons/Button";
+import NavGenerator from "../components/Navigations/NavGenerator";
+import { ItemData } from "@/lib/NavigationData/ItemsData";
 
 const Page = () => {
   const [items, setItems] = useState([]);
@@ -20,7 +22,9 @@ const Page = () => {
 
   return (
     <>
-      <MainWrapper>Items</MainWrapper>
+      <MainWrapper>
+        <NavGenerator Data={ItemData} />
+      </MainWrapper>
     </>
   );
 };

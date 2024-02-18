@@ -1,11 +1,13 @@
 "use client"
+import { CashData } from "@/lib/NavigationData/CashData";
+import NavGenerator from "../components/Navigations/NavGenerator";
 import MainWrapper from "../components/Wrapper/MainWrapper";
 
 const Page = () => {
   return (
     <>
       <MainWrapper>
-        <div>cash payments</div>
+        <NavGenerator Data={CashData} />
       </MainWrapper>
     </>
   );
