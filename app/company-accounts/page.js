@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
-import Button from "../components/Buttons/Button";
+import React, { useState } from "react";
 import MainWrapper from "../components/Wrapper/MainWrapper";
 import NavGenerator from "../components/Navigations/NavGenerator";
 import { CompanyData } from "@/lib/NavigationData/CompanyData";
+import TableComp from "../components/Table/TableComponent";
+import { AccountsColumns } from "@/lib/Columns/CompanyColumns";
 
 const Page = () => {
   // Define functions to handle button clicks
@@ -27,13 +28,27 @@ const Page = () => {
     // Add your logic here for Ledger button
   };
 
+  const [SelID, setSelID] = useState("");
+  const [EditItemModal, setEditItemModal] = useState(false);
+  const [EditCompanyModal, setEditCompanyModal] = useState(false);
+
   return (
     <>
       <MainWrapper>
-        <div className="w-full flex justify-center items-center my-3">
-          <NewButton type="modal" Width={currentWidth} setOpen={setEditCompanyModal} link="" Icon, title
-        </div>
         <NavGenerator Data={CompanyData} />
+        {/* main wrapper */}
+        <div className="w-[100%] flex justify-center items-center">
+          <div className="w-[90%]">
+            <TableComp
+              rows={[{}]}
+              columns={AccountsColumns}
+              title={"COMPANIES ACCOUNTS"}
+              setSelID={setSelID}
+              setEditItemModal={setEditItemModal}
+              setEditCompanyModal={setEditCompanyModal}
+            />
+          </div>
+        </div>
       </MainWrapper>
     </>
   );

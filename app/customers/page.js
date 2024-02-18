@@ -8,6 +8,8 @@ import Link from "next/link";
 import MainWrapper from "../components/Wrapper/MainWrapper";
 import { useEffect, useState } from "react"; // Import useEffect and useState from react package
 import "./page.css"; // Import the external CSS file
+import NavGenerator from "../components/Navigations/NavGenerator";
+import { CustomerData } from "@/lib/NavigationData/CustomerData";
 
 // Define the Page component
 const Page = () => {
@@ -40,45 +42,8 @@ const Page = () => {
 
   return (
     <>
-      {/* Wrap the content with MainWrapper component */}
       <MainWrapper>
-        {/* Define the content of the page */}
-        <div className="container">
-          <h1 className="heading">Customers Page</h1>
-          {/* Button group for adding, removing, and editing customers */}
-          <div className="buttonGroup">
-            <button className="button" onClick={addCustomer}>
-              Add Customer
-            </button>
-          </div>
-          {/* List of customers */}
-          <table className="customerTable">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {customers.map((customer) => (
-                <tr key={customer.id}>
-                  <td>{customer.id}</td>
-                  <td>{customer.name}</td>
-                  <td>
-                    {/* Add buttons for editing and removing individual customers */}
-                    <button className="editButton" onClick={() => editCustomer(customer.id, prompt('Enter new name:'))}>
-                      Edit
-                    </button>
-                    <button className="removeButton" onClick={() => removeCustomer(customer.id)}>
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <NavGenerator Data={CustomerData} />
       </MainWrapper>
     </>
   );

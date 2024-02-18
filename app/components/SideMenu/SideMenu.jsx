@@ -12,7 +12,7 @@ import { TbReport } from "react-icons/tb";
 const SideMenu = ({ MenuOpen }) => {
   return (
     <div
-      className={`flex flex-col justify-between w-fit h-[89.5vh] overflow-hidden mt-[2px] bg-[aliceblue] z-0 transition-transform duration-1000 ease-in-out transform absolute top-[10vh] ${
+      className={`z-10 flex flex-col justify-between w-fit h-[89.5vh] overflow-hidden mt-[2px] bg-[aliceblue] z-0 transition-transform duration-1000 ease-in-out transform absolute top-[10vh] ${
         MenuOpen ? "translate-x-0 shadow-[5px_0px_0px_0px_rgba(0,0,0)]" : "-translate-x-full"
       }`}
     >

@@ -3,6 +3,8 @@
 import MainWrapper from "../components/Wrapper/MainWrapper";
 import React, { useState } from "react";
 import "./EmployeePage.css";
+import NavGenerator from "../components/Navigations/NavGenerator";
+import { EmployeeData } from "@/lib/NavigationData/EmployeeData";
 
 const Page = () => {
   const [employees, setEmployees] = useState([]);
@@ -52,69 +54,7 @@ const Page = () => {
 
   return (
     <MainWrapper>
-      <div className="employee-page">
-        <h2>Employee Management System</h2>
-        <div className="employee-buttons">
-          <button onClick={addEmployee}>Add Employee</button>
-        </div>
-        <div className="employee-form">
-          <input
-            type="text"
-            placeholder="ID"
-            name="id"
-            value={newEmployee.id}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={newEmployee.name}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            placeholder="Position"
-            name="position"
-            value={newEmployee.position}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            placeholder="Salary"
-            name="salary"
-            value={newEmployee.salary}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="employee-list">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Salary</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {employees.map((employee, index) => (
-                <tr key={index}>
-                  <td>{employee.id}</td>
-                  <td>{employee.name}</td>
-                  <td>{employee.position}</td>
-                  <td>{employee.salary}</td>
-                  <td>
-                    <button onClick={() => editEmployee(index)}>Edit</button>
-                    <button onClick={() => removeEmployee(index)}>Remove</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <NavGenerator Data={EmployeeData} />
     </MainWrapper>
   );
 };
