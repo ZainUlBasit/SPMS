@@ -12,6 +12,7 @@ import AddingLightLoader from "../components/Loader/AddingLightLoader";
 import SuccessToast from "../components/Toast/SuccessToast";
 import ErrorToast from "../components/Toast/ErrorToast";
 import { useRouter } from "next/navigation";
+import { SignInApi } from "@/lib/Https";
 
 export default function Page() {
   const [Loading, setLoading] = useState(false);
@@ -31,8 +32,7 @@ export default function Page() {
     onSubmit: async (values) => {
       setLoading(true);
       try {
-        const response = await axios.post(
-          "http://localhost:3000/api/auth/login",
+        const response = await SignInApi(
           {
             email: values.email,
             password: values.password,
