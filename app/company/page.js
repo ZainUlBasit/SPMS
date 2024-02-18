@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Button from "../components/Buttons/Button";
 import MainWrapper from "../components/Wrapper/MainWrapper";
 import { BsBuildingAdd } from "react-icons/bs";
@@ -8,6 +8,8 @@ import { BsBuildingFillGear } from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
 import NavGenerator from "../components/Navigations/NavGenerator";
 import { CompanyData } from "@/lib/NavigationData/CompanyData";
+import TableCustom from "../components/Table/TableWrapper";
+import { CompanyColumns } from "../components/Table/Columns/CompanyData";
 
 const Page = () => {
   // Define functions to handle button clicks
@@ -31,10 +33,22 @@ const Page = () => {
     // Add your logic here for Ledger button
   };
 
+  const [SelID, setSelID] = useState("");
+  const [EditItemModal, setEditItemModal] = useState("");
+  const [EditCompanyModal, setEditCompanyModal] = useState("");
+
   return (
     <>
       <MainWrapper>
         <NavGenerator Data={CompanyData} />
+        <TableCustom
+          rows={[{}, {}]}
+          columns={CompanyColumns}
+          title={"Company Info"}
+          setSelID={setSelID}
+          setEditItemModal={setEditItemModal}
+          setEditCompanyModal={setEditCompanyModal}
+        />
       </MainWrapper>
     </>
   );
