@@ -8,8 +8,13 @@ import { AccountsColumns } from "@/lib/Columns/CompanyColumns";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCompanies } from "@/lib/Slices/CompanySlice";
 import { NewButton } from "../components/Buttons/NewButton";
-import { BsBuildingAdd, BsBuildingExclamation, BsBuildingFillGear } from "react-icons/bs";
+import {
+  BsBuildingAdd,
+  BsBuildingExclamation,
+  BsBuildingFillGear,
+} from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
+import { AddCompanyModal } from "../components/Modals/AddCompanyModal";
 
 const Page = () => {
   // Define functions to handle button clicks
@@ -36,6 +41,7 @@ const Page = () => {
   const [SelID, setSelID] = useState("");
   const [EditItemModal, setEditItemModal] = useState(false);
   const [EditCompanyModal, setEditCompanyModal] = useState(false);
+  const [OpenAddModal, setOpenAddModal] = useState(false);
 
   const dispatch = useDispatch();
   const CompaniesData = useSelector((state) => state.CompanyState);
@@ -96,6 +102,9 @@ const Page = () => {
           </div>
         </div>
       </MainWrapper>
+      {OpenAddModal && (
+        <AddCompanyModal Open={OpenAddModal} setOpen={setOpenAddModal} />
+      )}
     </>
   );
 };
