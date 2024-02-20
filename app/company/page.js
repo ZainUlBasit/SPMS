@@ -1,13 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainWrapper from "../components/Wrapper/MainWrapper";
 import NavGenerator from "../components/Navigations/NavGenerator";
 import { CompanyData } from "@/lib/NavigationData/CompanyData";
 import TableComp from "../components/Table/TableComponent";
 import { InfoColumns } from "@/lib/Columns/CompanyColumns";
 import { NewButton } from "../components/Buttons/NewButton";
-import { BsBuildingAdd, BsBuildingExclamation, BsBuildingFillGear } from "react-icons/bs";
+import {
+  BsBuildingAdd,
+  BsBuildingExclamation,
+  BsBuildingFillGear,
+} from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
+import { AddCompanyModal } from "../components/Modals/AddCompanyModal";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCompanies } from "@/lib/Slices/CompanySlice";
+import { EditCompany } from "../components/Modals/EditCompany";
 
 const Page = () => {
   // Define functions to handle button clicks
@@ -32,8 +40,15 @@ const Page = () => {
   };
 
   const [SelID, setSelID] = useState("");
+  const [OpenAddModal, setOpenAddModal] = useState(false);
   const [EditItemModal, setEditItemModal] = useState(false);
   const [EditCompanyModal, setEditCompanyModal] = useState(false);
+
+  const dispatch = useDispatch();
+  const CompaniesData = useSelector((state) => state.CompanyState);
+  useEffect(() => {
+    dispatch(fetchCompanies());
+  }, []);
 
   const currentWidth = "200px";
 
@@ -44,7 +59,7 @@ const Page = () => {
           <NewButton
             type="modal"
             Width={currentWidth}
-            setOpen={setEditCompanyModal}
+            setOpen={setOpenAddModal}
             link={""}
             Icon={BsBuildingAdd}
             title={"Add New"}
@@ -74,12 +89,11 @@ const Page = () => {
             title={"Accounts"}
           />
         </div>
-        <NavGenerator Data={CompanyData} />
         {/* main wrapper */}
         <div className="w-[100%] flex justify-center items-center">
           <div className="w-[90%]">
             <TableComp
-              rows={[{}]}
+              rows={CompaniesData.loading ? [{}] : CompaniesData?.data}
               columns={InfoColumns}
               title={"COMPANIES INFO"}
               setSelID={setSelID}
@@ -89,6 +103,16 @@ const Page = () => {
           </div>
         </div>
       </MainWrapper>
+      {OpenAddModal && (
+        <AddCompanyModal Open={OpenAddModal} setOpen={setOpenAddModal} />
+      )}
+      {EditCompanyModal && (
+        <EditCompany
+          Open={EditCompanyModal}
+          setOpen={setEditCompanyModal}
+          State={CompaniesData.data.filter((dt) => dt._id === SelID)[0]}
+        />
+      )}
     </>
   );
 };

@@ -8,13 +8,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { roboto } from "@/lib/Fontss";
 // import LoadingError from "../Loader/LoadingError";
 
 export default function TableComp({
   rows,
   columns,
   title,
-  isActive_,
   setSelID,
   setEditItemModal,
   setEditCompanyModal,
@@ -43,17 +43,15 @@ export default function TableComp({
     <div>Error Occured!</div>
   ) : (
     // <LoadingError />
-    <div
-      className="mt-0 flex justify-center flex-col w-full transition-all duration-500 ease-in-out"
-      isAct={isActive_}
-      width="80px"
-    >
-      <div className="relative bg-[#000] !py-[25px] text-xl flex items-center rounded-t-lg pl-10 text-white justify-center font-[raleway] font-[700] text-[1.4rem] select-none !text-[1.4rem] py-[8px] px-[0px]">
+    <div className="mt-0 flex justify-center flex-col w-full transition-all duration-500 ease-in-out">
+      <div
+        className={`relative bg-[#000] !py-[25px] text-xl flex items-center rounded-t-lg pl-10 text-white justify-center font-[raleway] font-[700] text-[1.4rem] select-none !text-[1.4rem] py-[8px] px-[0px] ${roboto.className}`}
+      >
         {title.toUpperCase()}
       </div>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer
-          className="border-[2px] border-[black] border-t-white"
+          className={`border-[2px] border-[black] border-t-white`}
           sx={{ maxHeight: 550, borderRadius: "0px 0px 10px 10px" }}
         >
           <Table stickyHeader aria-label="sticky table">
@@ -63,7 +61,7 @@ export default function TableComp({
                   <TableCell
                     key={index}
                     align={column.align}
-                    className="select-none"
+                    className={`select-none`}
                     style={{
                       minWidth: column.minWidth,
                       backgroundColor: "#000",
@@ -73,7 +71,7 @@ export default function TableComp({
                       fontFamily: "'Raleway', sans-serif",
                     }}
                   >
-                    {column.label}
+                    <div className={`${roboto.className}`}>{column.label}</div>
                   </TableCell>
                 ))}
               </TableRow>
@@ -107,9 +105,11 @@ export default function TableComp({
                               align={column.align}
                               style={{ fontWeight: "700", fontSize: "0.95rem" }}
                             >
-                              {column.format && typeof value === "number"
-                                ? column.format(value)
-                                : value}
+                              <div className={`${roboto.className}`}>
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </div>
                             </TableCell>
                           );
                         })}

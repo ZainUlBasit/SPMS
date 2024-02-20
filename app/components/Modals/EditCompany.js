@@ -8,7 +8,7 @@ import { useState } from "react";
 import AddingLightLoader from "../Loader/AddingLightLoader";
 import { Box, Modal, Typography } from "@mui/material";
 
-export const AddCompanyModal = ({ Open, setOpen, title }) => {
+export const EditCompany = ({ Open, setOpen, State }) => {
   const [Loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
@@ -22,14 +22,16 @@ export const AddCompanyModal = ({ Open, setOpen, title }) => {
     address: Yup.string().required("Address is required"),
   });
 
+  console.log(State);
+
   const formik = useFormik({
     initialValues: {
-      name: "",
-      desc: "",
-      contact: "",
-      email: "",
-      cnic: "",
-      address: "",
+      name: State.name,
+      desc: State.desc,
+      contact: State.contact,
+      email: State.email,
+      cnic: State.cnic,
+      address: State.address,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -87,7 +89,7 @@ export const AddCompanyModal = ({ Open, setOpen, title }) => {
           className="flex justify-center items-center border-b-2 border-[#5A4AE3] pb-4 text-[#5A4AE3] "
         >
           {/* <Icon className="mr-[5px]" style={{ fontSize: "40px" }} /> */}
-          Add New Company
+          Edit Company
         </Typography>
 
         <Typography
@@ -172,7 +174,7 @@ export const AddCompanyModal = ({ Open, setOpen, title }) => {
                   type="submit"
                   disabled={Loading}
                   onSubmit={formik.handleSubmit}
-                  title="Add Company"
+                  title="Update Company"
                   Loading={Loading}
                 />
               )}

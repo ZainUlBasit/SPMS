@@ -29,7 +29,9 @@ const AuthInput = ({
         onChange={onChange}
       />
       {touched && isError && (
-        <div className="text-red-500 font-[Quicksand] pl-2 pt-1">{errorMsg}</div>
+        <div className="text-red-500 font-[Quicksand] pl-2 pt-1">
+          {errorMsg}
+        </div>
       )}
     </div>
   );

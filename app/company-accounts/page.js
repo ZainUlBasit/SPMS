@@ -1,10 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainWrapper from "../components/Wrapper/MainWrapper";
 import NavGenerator from "../components/Navigations/NavGenerator";
 import { CompanyData } from "@/lib/NavigationData/CompanyData";
 import TableComp from "../components/Table/TableComponent";
 import { AccountsColumns } from "@/lib/Columns/CompanyColumns";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCompanies } from "@/lib/Slices/CompanySlice";
 
 const Page = () => {
   // Define functions to handle button clicks
@@ -32,6 +34,12 @@ const Page = () => {
   const [EditItemModal, setEditItemModal] = useState(false);
   const [EditCompanyModal, setEditCompanyModal] = useState(false);
 
+  const dispatch = useDispatch();
+  const CompaniesData = useSelector((state) => state.CompanyState);
+  useEffect(() => {
+    dispatch(fetchCompanies());
+  }, []);
+
   return (
     <>
       <MainWrapper>
@@ -40,7 +48,7 @@ const Page = () => {
         <div className="w-[100%] flex justify-center items-center">
           <div className="w-[90%]">
             <TableComp
-              rows={[{}]}
+              rows={CompaniesData.loading ? [{}] : CompaniesData?.data}
               columns={AccountsColumns}
               title={"COMPANIES ACCOUNTS"}
               setSelID={setSelID}
