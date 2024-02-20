@@ -43,6 +43,8 @@ const Page = () => {
     dispatch(fetchCompanies());
   }, []);
 
+  const currentWidth = "200px";
+
   return (
     <>
       <MainWrapper>
