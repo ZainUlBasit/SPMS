@@ -6,6 +6,8 @@ import { CompanyData } from "@/lib/NavigationData/CompanyData";
 import TableComp from "../components/Table/TableComponent";
 import { InfoColumns } from "@/lib/Columns/CompanyColumns";
 import { NewButton } from "../components/Buttons/NewButton";
+import { BsBuildingAdd, BsBuildingExclamation, BsBuildingFillGear } from "react-icons/bs";
+import { MdAccountBalance } from "react-icons/md";
 
 const Page = () => {
   // Define functions to handle button clicks
@@ -39,7 +41,38 @@ const Page = () => {
     <>
       <MainWrapper>
         <div className="w-full flex justify-center items-center my-3">
-          <NewButton type="modal" Width={currentWidth} setOpen={setEditCompanyModal} link={""} Icon title /> 
+          <NewButton
+            type="modal"
+            Width={currentWidth}
+            setOpen={setEditCompanyModal}
+            link={""}
+            Icon={BsBuildingAdd}
+            title={"Add New"}
+          />
+          <NewButton
+            type="link"
+            Width={currentWidth}
+            setOpen={""}
+            link={"/company"}
+            Icon={BsBuildingExclamation}
+            title={"Info"}
+          />
+          <NewButton
+            type="link"
+            Width={currentWidth}
+            setOpen={""}
+            link={"/company-accounts"}
+            Icon={BsBuildingFillGear}
+            title={"Accounts"}
+          />
+          <NewButton
+            type="link"
+            Width={currentWidth}
+            setOpen={""}
+            link={"/company-ledger"}
+            Icon={MdAccountBalance}
+            title={"Accounts"}
+          />
         </div>
         <NavGenerator Data={CompanyData} />
         {/* main wrapper */}
