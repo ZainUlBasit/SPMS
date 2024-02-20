@@ -7,6 +7,9 @@ import TableComp from "../components/Table/TableComponent";
 import { AccountsColumns } from "@/lib/Columns/CompanyColumns";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCompanies } from "@/lib/Slices/CompanySlice";
+import { NewButton } from "../components/Buttons/NewButton";
+import { BsBuildingAdd, BsBuildingExclamation, BsBuildingFillGear } from "react-icons/bs";
+import { MdAccountBalance } from "react-icons/md";
 
 const Page = () => {
   // Define functions to handle button clicks
@@ -43,7 +46,40 @@ const Page = () => {
   return (
     <>
       <MainWrapper>
-        <NavGenerator Data={CompanyData} />
+        <div className="w-full flex justify-center items-center my-3">
+          <NewButton
+            type="modal"
+            Width={currentWidth}
+            setOpen={setOpenAddModal}
+            link={""}
+            Icon={BsBuildingAdd}
+            title={"Add New"}
+          />
+          <NewButton
+            type="link"
+            Width={currentWidth}
+            setOpen={""}
+            link={"/company"}
+            Icon={BsBuildingExclamation}
+            title={"Info"}
+          />
+          <NewButton
+            type="link"
+            Width={currentWidth}
+            setOpen={""}
+            link={"/company-accounts"}
+            Icon={BsBuildingFillGear}
+            title={"Accounts"}
+          />
+          <NewButton
+            type="link"
+            Width={currentWidth}
+            setOpen={""}
+            link={"/company-ledger"}
+            Icon={MdAccountBalance}
+            title={"Accounts"}
+          />
+        </div>
         {/* main wrapper */}
         <div className="w-[100%] flex justify-center items-center">
           <div className="w-[90%]">
