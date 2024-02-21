@@ -1,68 +1,53 @@
-// pages/page.js
-import React from "react";
+"use client";
 import Link from "next/link";
-import { IoExit } from "react-icons/io5";
-import { FaBarsProgress } from "react-icons/fa6";
-import { ImCross } from "react-icons/im";
 import MainWrapper from "../components/Wrapper/MainWrapper";
-import Image from "next/image";
+import { useEffect, useState } from "react"; // Import useEffect and useState from react package
+import "./page.css"; // Import the external CSS file
+import NavGenerator from "../components/Navigations/NavGenerator";
+import { CustomerData } from "@/lib/NavigationData/CustomerData";
 
+// Define the Page component
 const Page = () => {
+  const [customers, setCustomers] = useState([
+    { id: 1, name: "Customer 1" },
+    { id: 2, name: "Customer 2" },
+    { id: 3, name: "Customer 3" },
+  ]);
+
+  // Function to add a new customer
+  const addCustomer = () => {
+    const newCustomerId = customers.length + 1;
+    const newCustomer = {
+      id: newCustomerId,
+      name: `Customer ${newCustomerId}`,
+    };
+    setCustomers([...customers, newCustomer]);
+  };
+
+  // Function to remove a customer by ID
+  const removeCustomer = (customerId) => {
+    const updatedCustomers = customers.filter(
+      (customer) => customer.id !== customerId
+    );
+    setCustomers(updatedCustomers);
+  };
+
+  // Function to edit a customer name by ID
+  const editCustomer = (customerId, newName) => {
+    const updatedCustomers = customers.map((customer) =>
+      customer.id === customerId ? { ...customer, name: newName } : customer
+    );
+    setCustomers(updatedCustomers);
+  };
+
   return (
-    <MainWrapper>
-      <div className="content">
-        <h1>Welcome to Your Dashboard</h1>
-        <div className="dashboard-grid">
-          <div className="graph-block">
-            {/* Graph component goes here */}
-            <h2>Graph 1</h2>
-            {/* Placeholder for graph */}
-          </div>
-          <div className="graph-block">
-            {/* Graph component goes here */}
-            <h2>Graph 2</h2>
-            {/* Placeholder for graph */}
-          </div>
-          <div className="graph-block">
-            {/* Graph component goes here */}
-            <h2>Graph 3</h2>
-            {/* Placeholder for graph */}
-          </div>
-          <div className="graph-block">
-            {/* Graph component goes here */}
-            <h2>Graph 4</h2>
-            {/* Placeholder for graph */}
-          </div>
-          <div className="page-link-block">
-            <h2>Quick Links</h2>
-            <ul>
-              <li>
-                <Link href="#">Link 1</Link>
-              </li>
-              <li>
-                <Link href="#">Link 2</Link>
-              </li>
-              <li>
-                <Link href="#">Link 3</Link>
-              </li>
-              <li>
-                <Link href="#">Link 4</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="items-for-sale-block">
-            <h2>Items for Sale</h2>
-            <div className="item">
-              <Image src="/item-image.jpg" alt="Item" width={100} height={100} />
-              <p>Item Name</p>
-              <p>$99.99</p>
-            </div>
-            {/* Add more items here */}
-          </div>
-        </div>
-      </div>
-    </MainWrapper>
+    <>
+      <MainWrapper>
+        <div>testing</div>
+      </MainWrapper>
+    </>
   );
 };
 
+// Export the Page component as default
 export default Page;
