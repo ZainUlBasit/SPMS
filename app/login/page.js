@@ -45,7 +45,7 @@ export default function Page() {
           else formik.setFieldError("password", "Invalid password!");
         } else if (response?.data?.success) {
           SuccessToast("Successfully Logged In!");
-          router.push("/dashboard");
+          router.push("/company");
         }
       } catch (err) {
         console.error("error1", err);
