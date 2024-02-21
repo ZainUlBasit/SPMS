@@ -16,7 +16,7 @@ const SideMenu = ({ MenuOpen }) => {
         MenuOpen ? "translate-x-0 shadow-[5px_0px_0px_0px_rgba(0,0,0)]" : "-translate-x-full"
       }`}
     >
-      <SideMenuItems Title="Dashboard" Icon={RiDashboard3Line} LinkText="/dashboard" />
+      <SideMenuItems Title="Dashboard" Icon={RiDashboard3Line} LinkText="/home" />
       <SideMenuItems Title="Company" Icon={FaBuildingShield} LinkText="/company" />
       <SideMenuItems Title="Items" Icon={MdInventory2} LinkText="/items"/>
       <SideMenuItems Title="Customers" Icon={FaUserShield} LinkText="/customers" />

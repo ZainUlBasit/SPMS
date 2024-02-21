@@ -1,5 +1,4 @@
 "use client";
-
 import MainWrapper from "../components/Wrapper/MainWrapper";
 
 // Define the Page component
