@@ -86,7 +86,7 @@ const Page = () => {
             setOpen={""}
             link={"/company-ledger"}
             Icon={MdAccountBalance}
-            title={"Accounts"}
+            title={"Ledger"}
           />
         </div>
         {/* main wrapper */}
