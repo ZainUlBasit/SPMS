@@ -26,12 +26,12 @@ export const EditCompany = ({ Open, setOpen, State }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: State.name,
-      desc: State.desc,
-      contact: State.contact,
-      email: State.email,
-      cnic: State.cnic,
-      address: State.address,
+      name: State?.name || '',
+      desc: State?.desc || '',
+      contact: State?.contact || '',
+      email: State?.email || '',
+      cnic: State?.cnic || '',
+      address: State?.address || '',
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
