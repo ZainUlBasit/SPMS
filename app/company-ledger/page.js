@@ -187,9 +187,10 @@ const Page = () => {
                         .toLowerCase()
                         .includes(CompanySearchText.toLowerCase())
                     )
-                    .map((dt) => {
+                    .map((dt, index) => {
                       return (
                         <div
+                          key={index}
                           className={`flex gap-x-3 items-center cursor-pointer ${roboto.className}`}
                           onClick={() => {
                             setCurrentCompany(dt.name);
@@ -236,10 +237,14 @@ const Page = () => {
             />
           </div>
           <div className="flex gap-x-4 mt-5">
-            <button className={`${roboto.className} bg-black text-white p-3 px-4 rounded-full border border-black hover:bg-white hover:text-black hover:border-white transition-all ease-in-out duration-700 font-bold text-xl`}>
+            <button
+              className={`${roboto.className} bg-black text-white p-3 px-4 rounded-full border border-black hover:bg-white hover:text-black hover:border-white transition-all ease-in-out duration-700 font-bold text-xl`}
+            >
               Show Cash Info
             </button>
-            <button className={`${roboto.className} bg-black text-white p-3 px-4 rounded-full border border-black hover:bg-white hover:text-black hover:border-white transition-all ease-in-out duration-700 font-bold text-xl`}>
+            <button
+              className={`${roboto.className} bg-black text-white p-3 px-4 rounded-full border border-black hover:bg-white hover:text-black hover:border-white transition-all ease-in-out duration-700 font-bold text-xl`}
+            >
               Show Item Info
             </button>
           </div>
