@@ -1,10 +1,9 @@
-"use client"
-import Link from "next/link";
+"use client";
 
 export default function Home() {
   return (
-    <main className="">
-      <Link href={"./login"}>Go to Login</Link>
+    <main className="h-screen w-full flex justify-center items-center bg-black">
+      <div className="w-full h-screen bg-black">zain</div>
     </main>
   );
 }

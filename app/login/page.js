@@ -43,8 +43,8 @@ export default function Page() {
           else formik.setFieldError("password", "Invalid password!");
         } else if (response?.data?.success) {
           SuccessToast("Successfully Logged In!");
-          localStorage.setItem("logged-in");
-          router.push("/home");
+          localStorage.setItem("logged-in", true);
+          // router.push("/home");
         }
       } catch (err) {
         console.error("error1", err);
@@ -77,7 +77,7 @@ export default function Page() {
     <>
       <div className="flex justify-center items-center w-full h-screen bg-[aliceblue]">
         <div className="bg-white flex justify-center flex-col items-center border-y-[3px] border-y-black rounded-[10px] py-5">
-          <Image src="/SPMS.png" alt="Not Found..." width={150} height={150}  />
+          <Image src="/SPMS.png" alt="Not Found..." width={150} height={150} />
           <p className="flex flex-col justify-center items-center">
             <span className="font-bold text-[1.8rem] font-[Quicksand]">
               Welcome back!
