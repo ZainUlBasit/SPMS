@@ -1,7 +1,7 @@
 "use client";
 import { io } from "socket.io-client";
 import MainWrapper from "../components/Wrapper/MainWrapper";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // Define the Page component
 const Page = () => {
@@ -11,9 +11,15 @@ const Page = () => {
     },
   }); // Replace with your server URL
 
-  const userLoggedIn = localStorage.getItem("logged-in");
+  const [userLoggedIn, setuserLoggedIn] = useState(false)
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedLoggedIn = localStorage.getItem('logged-in');
+      if (storedLoggedIn) {
+        setuserLoggedIn(true);
+      }
+    }
     if (!userLoggedIn) return;
     // Listen for custom events
     socket.on("connect", (data) => {
