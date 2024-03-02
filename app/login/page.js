@@ -32,12 +32,10 @@ export default function Page() {
     onSubmit: async (values) => {
       setLoading(true);
       try {
-        const response = await SignInApi(
-          {
-            email: values.email,
-            password: values.password,
-          }
-        );
+        const response = await SignInApi({
+          email: values.email,
+          password: values.password,
+        });
         if (!response?.data?.success) {
           ErrorToast(response?.data?.error);
           if (response?.data?.error?.msg === "No such email registered!")

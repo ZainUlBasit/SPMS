@@ -83,6 +83,7 @@ export default function TableComp({
                   .map((row, index) => {
                     return (
                       <TableRow
+                        id={row._id}
                         hover
                         role="checkbox"
                         tabIndex={-1}

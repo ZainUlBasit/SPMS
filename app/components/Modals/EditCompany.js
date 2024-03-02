@@ -10,6 +10,7 @@ import { Box, Modal, Typography } from "@mui/material";
 
 export const EditCompany = ({ Open, setOpen, State }) => {
   const [Loading, setLoading] = useState(false);
+  console.log(State[0]);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
@@ -26,12 +27,12 @@ export const EditCompany = ({ Open, setOpen, State }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: State?.name || '',
-      desc: State?.desc || '',
-      contact: State?.contact || '',
-      email: State?.email || '',
-      cnic: State?.cnic || '',
-      address: State?.address || '',
+      name: State?.name,
+      desc: State?.desc,
+      contact: State?.contact,
+      email: State?.email,
+      cnic: State?.cnic,
+      address: State?.address,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {

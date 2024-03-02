@@ -110,7 +110,9 @@ const Page = () => {
         <EditCompany
           Open={EditCompanyModal}
           setOpen={setEditCompanyModal}
-          State={CompaniesData.data.filter((dt) => dt._id === SelID)[0]}
+          State={CompaniesData.data.filter((dt) => {
+            if (dt._id === SelID) return dt;
+          })}
         />
       )}
     </>
