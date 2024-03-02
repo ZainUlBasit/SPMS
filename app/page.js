@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { useEffect } from "react";
+import { io } from "socket.io-client";
 
 export default function Home() {
   return (

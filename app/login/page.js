@@ -43,6 +43,7 @@ export default function Page() {
           else formik.setFieldError("password", "Invalid password!");
         } else if (response?.data?.success) {
           SuccessToast("Successfully Logged In!");
+          localStorage.setItem("logged-in");
           router.push("/home");
         }
       } catch (err) {
