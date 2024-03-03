@@ -44,7 +44,7 @@ export default function Page() {
         } else if (response?.data?.success) {
           SuccessToast("Successfully Logged In!");
           localStorage.setItem("logged-in", true);
-          // router.push("/home");
+          router.push("/dashboard");
         }
       } catch (err) {
         console.error("error1", err);
@@ -52,26 +52,6 @@ export default function Page() {
       setLoading(false);
     },
   });
-
-  const Check = async () => {
-    console.log("yes");
-    try {
-      const response = await axios.get("http://localhost:3000/api/user");
-      console.log("response", response);
-
-      if (!response?.data?.success) {
-        ErrorToast(response?.data?.error);
-        if (response?.data?.error?.msg === "No such email registered!")
-          formik.setFieldError("email", response?.data?.error?.msg);
-        else formik.setFieldError("password", "Invalid password!");
-      } else if (response?.data?.success) {
-        SuccessToast(response.data.data.msg);
-        // router.push("/dashboard");
-      }
-    } catch (err) {
-      console.error("error1", err);
-    }
-  };
 
   return (
     <>

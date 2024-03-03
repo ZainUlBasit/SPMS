@@ -2,6 +2,8 @@
 import { io } from "socket.io-client";
 import MainWrapper from "../components/Wrapper/MainWrapper";
 import { useEffect, useState } from "react";
+import { CheckLocalStorage } from "@/lib/CheckLocalStorage";
+import { useRouter } from "next/navigation";
 
 // Define the Page component
 const Page = () => {
@@ -11,15 +13,26 @@ const Page = () => {
     },
   }); // Replace with your server URL
 
-  const [userLoggedIn, setuserLoggedIn] = useState(false)
-
+  // use in all pages
+  const [userLoggedIn, setuserLoggedIn] = useState(false);
+  const router = useRouter();
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedLoggedIn = localStorage.getItem('logged-in');
-      if (storedLoggedIn) {
-        setuserLoggedIn(true);
-      }
-    }
+    CheckLocalStorage(router, setuserLoggedIn);
+    if (!userLoggedIn) return;
+    socket.on("connect", (data) => {
+      console.log("connected");
+    });
+    socket.on("notification-message", (data) => {
+      SuccessToast(data.description);
+    });
+
+    return () => {
+      socket.off("disconnect", (data) => {
+        console.log("disconnected");
+      });
+    };
+  }, []);
+  useEffect(() => {
     if (!userLoggedIn) return;
     // Listen for custom events
     socket.on("connect", (data) => {
@@ -36,7 +49,9 @@ const Page = () => {
         console.log("disconnected");
       });
     };
-  }, []);
+  }, [userLoggedIn]);
+
+
   return (
     <MainWrapper>
       <div>

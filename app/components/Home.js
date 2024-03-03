@@ -4,7 +4,7 @@ import React from "react";
 
 const Home = () => {
   // Check if running on the client side
-  const isLoggedIn = typeof window !== "undefined" ? localStorage.getItem("logged-in") : null;
+  const isLoggedIn = localStorage.getItem("logged-in");
 
   return (
     <div>

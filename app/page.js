@@ -1,17 +1,22 @@
 // pages/index.js
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-const DynamicHome = dynamic(() => import("./components/Home"), {
-  ssr: false,
-});
+import AddingLightLoader from "./components/Loader/AddingLightLoader";
+import { useRouter } from "next/navigation";
+import { CheckLocalStorage } from "@/lib/CheckLocalStorage";
 
 export default function Home() {
-  // Check if running on the client side
+  const router = useRouter();
+  const [CurrentStatus, setCurrentStatus] = useState(false);
+  // State to hold the logged-in status
+  useEffect(() => {
+    CheckLocalStorage(router,setCurrentStatus);
+  }, []);
 
   return (
-    <main className="">
-      <DynamicHome />
+    <main className="h-screen w-full flex justify-center items-center">
+      <AddingLightLoader />
     </main>
   );
 }
