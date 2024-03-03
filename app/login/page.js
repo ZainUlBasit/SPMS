@@ -44,7 +44,7 @@ export default function Page() {
         } else if (response?.data?.success) {
           SuccessToast("Successfully Logged In!");
           localStorage.setItem("logged-in", true);
-          router.push("/dashboard");
+          router.push("/home");
         }
       } catch (err) {
         console.error("error1", err);
