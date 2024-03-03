@@ -1,4 +1,5 @@
 "use client";
+import { roboto } from "@/lib/Fontss";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -13,7 +14,7 @@ const SideMenuItems = ({ LinkText = "", Icon, Title }) => {
       }}
     >
       <Icon className="text-[2rem]" />
-      <span className="font-[Quicksand] text-[1rem] font-bold">{Title}</span>
+      <span className={`${roboto.className} text-[1rem] font-bold`}>{Title}</span>
     </div>
   );
 };

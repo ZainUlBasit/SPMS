@@ -16,6 +16,11 @@ import { AddCompanyModal } from "../components/Modals/AddCompanyModal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCompanies } from "@/lib/Slices/CompanySlice";
 import { EditCompany } from "../components/Modals/EditCompany";
+import { io } from "socket.io-client";
+import { useRouter } from "next/navigation";
+import { CheckLocalStorageAll } from "@/lib/CheckLocalStorageAll";
+import SuccessToast from "../components/Toast/SuccessToast";
+import { LoaderModal } from "../components/Modals/LoaderModal";
 
 const Page = () => {
   // Define functions to handle button clicks
@@ -51,6 +56,35 @@ const Page = () => {
   }, []);
 
   const currentWidth = "200px";
+  const socket = io("https://spms-backend-production.up.railway.app", {
+    extraHeaders: {
+      role: 1,
+    },
+  }); // Replace with your server URL
+  const [Loading, setLoading] = useState(true);
+  const [userLoggedIn, setuserLoggedIn] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    CheckLocalStorageAll(router, setuserLoggedIn, setLoading);
+  }, []);
+  useEffect(() => {
+    if (!userLoggedIn) return;
+    // Listen for custom events
+    socket.on("connect", (data) => {
+      console.log("connected");
+    });
+    socket.on("notification-message", (data) => {
+      // Handle the event data
+      SuccessToast(data.description);
+    });
+
+    // Clean up the socket connection on component unmount
+    return () => {
+      socket.off("disconnect", (data) => {
+        console.log("disconnected");
+      });
+    };
+  }, [userLoggedIn]);
 
   return (
     <>
@@ -89,19 +123,25 @@ const Page = () => {
             title={"Ledger"}
           />
         </div>
-        {/* main wrapper */}
-        <div className="w-[100%] flex justify-center items-center">
-          <div className="w-[90%]">
-            <TableComp
-              rows={CompaniesData.loading ? [{}] : CompaniesData?.data}
-              columns={InfoColumns}
-              title={"COMPANIES INFO"}
-              setSelID={setSelID}
-              setEditItemModal={setEditItemModal}
-              setEditCompanyModal={setEditCompanyModal}
-            />
-          </div>
-        </div>
+        {Loading ? (
+          <LoaderModal Open={Loading} setOpen={setLoading} />
+        ) : (
+          <>
+            {/* main wrapper */}
+            <div className="w-[100%] flex justify-center items-center">
+              <div className="w-[90%]">
+                <TableComp
+                  rows={CompaniesData.loading ? [{}] : CompaniesData?.data}
+                  columns={InfoColumns}
+                  title={"COMPANIES INFO"}
+                  setSelID={setSelID}
+                  setEditItemModal={setEditItemModal}
+                  setEditCompanyModal={setEditCompanyModal}
+                />
+              </div>
+            </div>
+          </>
+        )}
       </MainWrapper>
       {OpenAddModal && (
         <AddCompanyModal Open={OpenAddModal} setOpen={setOpenAddModal} />

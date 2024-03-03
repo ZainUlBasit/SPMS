@@ -4,6 +4,7 @@ import MainWrapper from "../components/Wrapper/MainWrapper";
 import { useEffect, useState } from "react";
 import { CheckLocalStorage } from "@/lib/CheckLocalStorage";
 import { useRouter } from "next/navigation";
+import { CheckLocalStorageAll } from "@/lib/CheckLocalStorageAll";
 
 // Define the Page component
 const Page = () => {
@@ -13,11 +14,13 @@ const Page = () => {
     },
   }); // Replace with your server URL
 
+  const [loading, setLoading] = useState(false)
+
   // use in all pages
   const [userLoggedIn, setuserLoggedIn] = useState(false);
   const router = useRouter();
   useEffect(() => {
-    CheckLocalStorage(router, setuserLoggedIn);
+    CheckLocalStorageAll(router, setuserLoggedIn, setLoading);
     if (!userLoggedIn) return;
     socket.on("connect", (data) => {
       console.log("connected");
