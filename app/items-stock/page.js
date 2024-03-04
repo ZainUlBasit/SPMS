@@ -2,7 +2,7 @@
 "use client";
 import React, { useState } from "react";
 import MainWrapper from "../components/Wrapper/MainWrapper";
-import "./page.css";
+// import "./page.css";
 import Button from "../components/Buttons/Button";
 import NavGenerator from "../components/Navigations/NavGenerator";
 import { ItemData } from "@/lib/NavigationData/ItemsData";
@@ -11,19 +11,8 @@ import { BsBuildingAdd, BsInfo, BsInfoCircleFill } from "react-icons/bs";
 import { RiStockFill } from "react-icons/ri";
 
 const Page = () => {
-  const [items, setItems] = useState([]);
   const [OpenAddModal, setOpenAddModal] = useState(false);
   const [AddStockModal, setAddStockModal] = useState(false)
-
-  const addItem = () => {
-    const newItem = {
-      id: items.length + 1, // Assign a unique ID to each item
-      name: `Item ${items.length + 1}`,
-      description: `Description of item ${items.length + 1}`,
-      price: "$99.99",
-    };
-    setItems([...items, newItem]);
-  };
 
   const currentWidth = "220px";
 
@@ -64,7 +53,7 @@ const Page = () => {
             title={"Stock Statistics"}
           />
         </div>
-        <div>Items Info</div>
+        <div>Stock Statistics</div>
       </MainWrapper>
     </>
   );
